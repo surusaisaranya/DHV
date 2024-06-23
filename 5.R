@@ -24,12 +24,13 @@ mosaic_plot <- ggplot(data) +
 
 print(mosaic_plot)
 
-data <- data[order(data$Selection_Rate, decreasing = TRUE), ]  # Sort data by Selection Rate
-
-funnel_plot <- ggplot(data, aes(x = reorder(Job_Sector, Selection_Rate), y = Selection_Rate)) +
-  geom_bar(stat = "identity", fill = "skyblue", width = 0.7) +
-  coord_flip() +
-  labs(title = "Funnel Plot of Selection Rate by Job Sector", x = "Job Sector", y = "Selection Rate") +
+ggplot(data, aes(x = Jobseekerrate, y = Selectionrate, label = JobSector)) +
+  geom_point(size = 4, color = "blue") +
+  geom_text(vjust = -1) +
+  labs(title = "Funnel Plot for Job Selections",
+       x = "Job Seekers Rate (%)",
+       y = "Selection Rate (%)") +
   theme_minimal()
+
 
 print(funnel_plot)
