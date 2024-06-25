@@ -3,7 +3,7 @@
 #install.packages("plotly")
 #install.packages("reshape2")
 #install.packages("ggparallel")
-install.packages("fmsb")
+#install.packages("fmsb")
 library(ggplot2)
 library(GGally)
 library(plotly)
@@ -34,13 +34,13 @@ ggparallel(list('X1', 'X2', 'X3'), data = data_multi, title = "Parallel Coordina
 
 # Radar chart to compare values of X1, X2, and X3 for ID 1
 data_radar <- data.frame(
-  row.names = c("Min", "Max", "ID1"),
+  row.names = c("Min", "Max", "ID1"), 
   X1 = c(min(data_multi$X1), max(data_multi$X1), data_multi$X1[1]),
   X2 = c(min(data_multi$X2), max(data_multi$X2), data_multi$X2[1]),
   X3 = c(min(data_multi$X3), max(data_multi$X3), data_multi$X3[1])
 )
 
-radarchart(data_radar, axistype = 1, pcol = "blue", pfcol = "lightblue", plwd = 2,
+radarchart(data_radar, axistype = 1, pcol = "purple", pfcol = "orange", plwd = 2,
            title = "Radar Chart for ID 1")
 
 # Heatmap showing correlations between X1, X2, and X3
