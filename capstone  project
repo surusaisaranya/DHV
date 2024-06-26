@@ -1,0 +1,118 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Generating synthetic sales data
+np.random.seed(42)
+
+# Creating a dataframe with synthetic data
+dates = pd.date_range(start='2023-01-01', periods=365, freq='D')
+products = ['Product A', 'Product B', 'Product C', 'Product D']
+regions = ['North', 'South', 'East', 'West']
+sales_data = {
+    'Date': np.random.choice(dates, 1000),
+    'Product': np.random.choice(products, 1000),
+    'Region': np.random.choice(regions, 1000),
+    'Sales': np.random.randint(1, 100, 1000),
+    'Revenue': np.random.randint(100, 1000, 1000)
+}
+
+df = pd.DataFrame(sales_data)
+
+# Display first few rows of the dataframe
+print(df.head())
+
+# 1. Boxplot of Sales by Product
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df, x='Product', y='Sales', palette='Set3')
+plt.title('Boxplot of Sales by Product')
+plt.xlabel('Product')
+plt.ylabel('Sales')
+plt.grid(True)
+plt.show()
+
+# 2. Boxplot of Revenue by Region
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df, x='Region', y='Revenue', palette='Set2')
+plt.title('Boxplot of Revenue by Region')
+plt.xlabel('Region')
+plt.ylabel('Revenue')
+plt.grid(True)
+plt.show()
+
+# 3. Scatterplot of Sales vs Revenue
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='Sales', y='Revenue', hue='Product', palette='Dark2')
+plt.title('Scatterplot of Sales vs Revenue')
+plt.xlabel('Sales')
+plt.ylabel('Revenue')
+plt.grid(True)
+plt.show()
+
+# 4. Line plot of Total Sales Over Time
+total_sales_by_date = df.groupby('Date')['Sales'].sum().reset_index()
+plt.figure(figsize=(10, 6))
+sns.lineplot(data=total_sales_by_date, x='Date', y='Sales', marker='o')
+
+plt.title('Total Sales Over Time')
+plt.xlabel('Date')
+plt.ylabel('Total Sales')
+plt.grid(True)
+plt.show()
+
+# 5. Bar plot of Total Revenue by Product
+total_revenue_by_product = df.groupby('Product')['Revenue'].sum().reset_index()
+plt.figure(figsize=(10, 6))
+sns.barplot(data=total_revenue_by_product, x='Product', y='Revenue', palette='viridis')
+plt.title('Total Revenue by Product')
+plt.xlabel('Product')
+plt.ylabel('Total Revenue')
+plt.grid(True)
+plt.show()
+
+# 6. Bar plot of Total Sales by Region
+total_sales_by_region = df.groupby('Region')['Sales'].sum().reset_index()
+plt.figure(figsize=(10, 6))
+sns.barplot(data=total_sales_by_region, x='Region', y='Sales', palette='magma')
+plt.title('Total Sales by Region')
+plt.xlabel('Region')
+plt.ylabel('Total Sales')
+plt.grid(True)
+plt.show()
+
+# 7. Heatmap of Sales by Region and Product
+sales_pivot = df.pivot_table(values='Sales', index='Region', columns='Product', aggfunc='sum', fill_value=0)
+plt.figure(figsize=(10, 6))
+sns.heatmap(sales_pivot, annot=True, fmt='d', cmap='coolwarm')
+plt.title('Heatmap of Sales by Region and Product')
+plt.xlabel('Product')
+plt.ylabel('Region')
+plt.show()
+
+# 8. Violin plot of Sales by Region
+plt.figure(figsize=(10, 6))
+sns.violinplot(data=df, x='Region', y='Sales', palette='pastel')
+plt.title('Violin Plot of Sales by Region')
+plt.xlabel('Region')
+plt.ylabel('Sales')
+plt.grid(True)
+plt.show()
+
+# 9. KDE plot of Revenue
+plt.figure(figsize=(10, 6))
+sns.kdeplot(data=df, x='Revenue', fill=True, color='skyblue')
+plt.title('KDE Plot of Revenue')
+plt.xlabel('Revenue')
+plt.ylabel('Density')
+plt.grid(True)
+plt.show()
+
+# 10. Histogram of Sales
+plt.figure(figsize=(10, 6))
+sns.histplot(data=df, x='Sales', bins=30, color='darkgreen')
+plt.title('Histogram of Sales')
+plt.xlabel('Sales')
+plt.ylabel('Frequency')
+plt.grid(True)
+plt.show()
